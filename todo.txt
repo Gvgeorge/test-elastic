@@ -1,8 +1,15 @@
-авторизация вернуть ворнинги
-
-timezone
 integrity errors while updating
 эксепшны
 модель для эластика
 Штуку типа транзакции чтобы одновременно добавляла в эластик и бд вещи и также удаляла
 export
+
+docker run -d --name kibana --net netlastic -p 5601:5601 kibana:7.17.3
+
+Changed password for user [apm_system]
+Changed password for user [kibana]
+Changed password for user [kibana]
+Changed password for user [logstash]
+Changed password for user [beats_system]
+Changed password for user [remote_monitor]
+Changed password for user [elastic]
