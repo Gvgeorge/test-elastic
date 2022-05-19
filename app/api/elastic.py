@@ -12,46 +12,46 @@ router = APIRouter(
 
 
 @router.get('/')
-def get_docs(service: ElasticService = Depends()):
-    return service.get_list()
+async def get_docs(service: ElasticService = Depends()):
+    return await service.get_list()
 
 
 @router.post('/add/{doc_id}')
-def add_doc(
+async def add_doc(
     post_id: int,
     service: ElasticService = Depends(),
 ):
-    return service.add_to_index(post_id)
+    return await service.add_to_index(post_id)
 
 
 @router.delete('/delete_idx/{service_name}')
-def delete_idx(
+async def delete_idx(
     service_name: str,
     service: ElasticService = Depends(),
 ):
-    service.delete_index(service_name)
+    await service.delete_index(service_name)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete('/delete_doc/{doc_id}')
-def delete_doc(
+async def delete_doc(
     doc_id: int,
     service: ElasticService = Depends(),
 ):
-    service.delete_doc(doc_id)
+    await service.delete_doc(doc_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.get('/sync')
-def sync_with_db(
+async def sync_with_db(
     service: ElasticService = Depends(),
 ):
-    return service.sync_with_db()
+    return await service.sync_with_db()
 
 
 @router.get('/search/{text}/', response_model=List[Post])
-def search(text: str, service: ElasticService = Depends()):
-    return service.search(text)
+async def search(text: str, service: ElasticService = Depends()):
+    return await service.search(text)
 
 # @router.post('/', response_model=Post)
 # def add_post(

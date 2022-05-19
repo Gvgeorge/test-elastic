@@ -19,7 +19,7 @@ class ReportService:
         self.rubric_service = rubric_service
         self.elastic_service = elastic_service
 
-    def import_csv(self, file: IO):
+    async def import_csv(self, file: IO):
         reader = csv.DictReader(
             (line.decode() for line in file),
             fieldnames=['text', 'created_datetime', 'rubrics']
@@ -35,4 +35,4 @@ class ReportService:
                               for rubric in row['rubrics']]
             post_data = PostCreate.parse_obj(row)
             posts.append(post_data)
-        self.post_service.create_many(posts)
+        await self.post_service.create_many(posts)
