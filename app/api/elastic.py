@@ -1,7 +1,7 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, Response, status
-from models.posts import Post
+from models.posts import Post, PostCreate, PostUpdate
 from services.elastic import ElasticService
 
 
@@ -16,12 +16,12 @@ async def get_docs(service: ElasticService = Depends()):
     return await service.get_list()
 
 
-@router.post('/add/{doc_id}')
+@router.post('/add/')
 async def add_doc(
-    post_id: int,
+    post_data: PostCreate,
     service: ElasticService = Depends(),
 ):
-    return await service.add_to_index(post_id)
+    return await service.add(post_data)
 
 
 @router.delete('/delete_idx/{service_name}')
@@ -53,9 +53,11 @@ async def sync_with_db(
 async def search(text: str, service: ElasticService = Depends()):
     return await service.search(text)
 
-# @router.post('/', response_model=Post)
-# def add_post(
-#     post_data: PostCreate,
-#     service: PostService = Depends(),
-# ):
-#     return service.create(post_data)
+
+@router.put('/{doc_id}', response_model=Post)
+async def update_post(
+    post_id: int,
+    post_data: PostUpdate,
+    service: ElasticService = Depends(),
+):
+    return await service.update(post_id, post_data)

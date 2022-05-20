@@ -12,5 +12,5 @@ class RubricCreate(RubricBase):
     pass
 
 
-class RubricUpdate(Rubric):
+class RubricUpdate(RubricBase):
     pass

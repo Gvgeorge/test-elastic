@@ -10,10 +10,12 @@ router = APIRouter(
 
 
 @router.post('/import')
-async def import_csv(
+def import_csv(
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     report_service: ReportService = Depends(),
 
-) -> None:
-    background_tasks.add_task(report_service.import_csv,  file.file)
+):
+    background_tasks.add_task(
+        report_service.import_csv,  file.file)
+

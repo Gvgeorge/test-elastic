@@ -39,7 +39,7 @@ services:
       - elasticsearch
 
   testlastic:
-    image: testlastic
+    build: .
     container_name: testlastic
     environment:
       - ELASTIC_USERNAME=elastic
